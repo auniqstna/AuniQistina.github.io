@@ -1,0 +1,176 @@
+<!DOCTYPE HTML>
+<!--
+	Hyperspace by HTML5 UP
+	html5up.net | @ajlkn
+	Free for personal and commercial use under the CCA 3.0 license (html5up.net/license)
+-->
+<html>
+	<head>
+		<title>Amazon's Books dataset</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
+		<link rel="stylesheet" href="assets/css/main.css" />
+		<noscript><link rel="stylesheet" href="assets/css/noscript.css" /></noscript>
+	</head>
+	<body class="is-preload">
+
+		<!-- Header -->
+			<header id="header">
+				<a href="index.html" class="title">Hyperspace</a>
+				<nav>
+					<ul>
+						<li><a href="index.html">Home</a></li>
+						<li><a href="generic.html" class="active">Generic</a></li>
+						<li><a href="elements.html">Elements</a></li>
+					</ul>
+				</nav>
+			</header>
+
+		<!-- Wrapper -->
+			<div id="wrapper">
+
+				<!-- Main -->
+					<section id="main" class="wrapper">
+						<div class="inner">
+							<h1 class="major">Data Visualization in Python (Amazon's Books dataset)</h1>
+							<p>As mentioned, I have utilized Plotly packages. However, there are some technical issues. As seen on my github where I post <b><a href="https://github.com/auniqstna/PortfolioProjects/blob/main/amazon_books_1.ipynb">the code repository</a></b>, the visualization using Plotly packages are not displayed. This is because github performs a static render of the notebooks and it does not include the embedded HTML/JavaScript that makes up a plotly graph.</p>
+							<p>I'm still working on this issue but, for now, please note that the graphs shown below are the Plotly graphs.</p>
+							<a href="#" class="image"><img src="images/newplot (1).png" alt="" data-position="top center" /></a>
+							<p>The table shows the top 10 authors with the highest average rating. In the repository code, this visualization is called by <b>fig_1</b>.</p>
+							<h3>Code</h3>
+									<pre><code>fig_1 = make_subplots(rows=1, cols=1, subplot_titles=("")) 
+# Setting table parameters
+fig_1.add_trace(go.Table(columnorder = [1,2],
+				columnwidth = [35,35],
+				header=dict(values=top_10_authors.columns, 
+				line_color='black',
+				fill_color='mediumaquamarine',
+				height=30),
+				cells=dict(values=[top_10_authors['Author'],
+				top_10_authors['User Rating']], 
+				line_color='black',
+				fill_color='White')))
+										
+# Setting the parameters of the chart when displaying
+fig_1.update_layout(showlegend=False, 
+					title_text='Top 10 best authors', 
+					title_font_size=25, 
+					title_font_family='Arial Rounded MT Bold', 
+					title_x=0.5,
+					font=dict(family='Arial', 
+					size=12, 
+					color='black'))
+										
+# Displaying the graph
+fig_1.show()</code></pre>
+							<a href="#" class="image"><img src="images/newplot (2).png" alt="" data-position="top center" /></a>
+							<p>The donut chart shows the percentage of the books genre (Non-Fiction and Fiction). In the repository code, this visualization is called by <b>fig_2</b>.</p>
+							<h3>Code</h3>
+									<pre><code># Let's set the visualization parameters
+fig_2 = make_subplots(rows=1, cols=1)
+										
+# Setting table parameters
+fig_2.add_trace(go.Pie(values=number_of_books_by_genre['Name'],
+				labels=['Non Fiction', 'Fiction'],
+				textinfo='label+percent',
+				insidetextorientation='radial',
+				hole=0.3,
+				marker=dict(colors=['Gray','mediumaquamarine'], 
+				line_color='Gray', 
+				line_width=1),
+				textfont={'color': 'azure', 'size': 17},
+				textfont_size=17))
+										
+# Setting the parameters of the chart when displaying
+fig_2.update_layout(margin_t=50, 
+					showlegend=False, 
+					title_text='Count of books genre', 
+					title_x=0.5, 
+					font=dict(family='Arial', 
+					size=15, 
+					color='black'))
+										
+# Displaying the graph
+fig_2.show()</code></pre>
+							<a href="#" class="image"><img src="images/newplot (3).png" alt="" data-position="top center" /></a>
+							<p>The bar chart shows the the top 10 authors by the number of their bestsellers. In the repository code, this visualization is called by <b>fig_3</b>.</p>
+							<h3>Code</h3>
+									<pre><code># Let's set the visualization parameters
+fig_3 = make_subplots(rows=1, cols=1,
+					subplot_titles=(""))
+										
+# Setting Bar parameters
+fig_3.add_trace(go.Bar(x=number_of_books_written['Author'], 
+						y=number_of_books_written['Name'],
+						name ='Book Counts',
+						marker_color=['#148F77','#1ABC9C', '#1ABC9C', '#1ABC9C', '#48C9B0',
+						'#76D7C4', '#76D7C4', '#A3E4D7', '#D1F2EB', '#E8F8F5 ']),
+						row=1, col=1)
+										
+# Setting the parameters of the chart when displaying
+fig_3.update_traces(marker_line_width=0)
+										
+# Setting the parameters of the chart when displaying
+fig_3.update_layout(showlegend=False, 
+					#plot_bgcolor='rgba(1,1,1,1)',
+					font=dict(family='Arial', 
+					size=15,
+					color='black'),
+					title_text='Top 10 authors by number of bestsellers', 
+					title_x=0.5)
+										
+# Displaying the graph
+iplot(fig_3)</code></pre>
+							<a href="#" class="image"><img src="images/newplot (4).png" alt="" data-position="top center" /></a>
+							<p>The bar chart shows the the top 5 books by the number of reviews. In the repository code, this visualization is called by <b>fig_4</b>.</p>
+							<h3>Code</h3>
+									<pre><code>
+# Let's set the visualization parameters
+fig_4 = make_subplots(rows=1, cols=1,
+						subplot_titles=(""))
+										
+# Setting Bar parameters
+fig_4.add_trace(go.Bar(x=books_with_the_number_of_reviews['Name'], 
+						y=books_with_the_number_of_reviews['Reviews'],
+						marker_color=['#148F77','#1ABC9C', '#76D7C4', '#A3E4D7', '#E8F8F5'],
+						name ='Reviews'),
+						row=1, col=1)
+										
+# Setting the parameters of the chart when displaying
+fig_4.update_traces(marker_line_width=0)
+										
+# Setting the parameters of the chart when displaying
+fig_4.update_layout(showlegend=False, 
+					#plot_bgcolor='rgba(1,1,1,1)',
+					font=dict(family='Arial', 
+					size=12,
+					color='black'),
+					title_text='Top 5 books by number of reviews', 
+					title_x=0.2)
+# Displaying the graph
+fig_4.show()</code></pre>
+						</div>
+					</section>
+
+			</div>
+
+		<!-- Footer -->
+			<footer id="footer" class="wrapper alt">
+				<div class="inner">
+					<ul class="menu">
+						<li>&copy; Untitled. All rights reserved.</li><li>Design: <a href="http://html5up.net">HTML5 UP</a></li>
+					</ul>
+				</div>
+			</footer>
+
+		<!-- Scripts -->
+			<script src="assets/js/jquery.min.js"></script>
+			<script src="assets/js/jquery.scrollex.min.js"></script>
+			<script src="assets/js/jquery.scrolly.min.js"></script>
+			<script src="assets/js/browser.min.js"></script>
+			<script src="assets/js/breakpoints.min.js"></script>
+			<script src="assets/js/util.js"></script>
+			<script src="assets/js/main.js"></script>
+
+	</body>
+</html>
